@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/c4erries/max_bot/internal/backend"
+	"github.com/insentodesu/max_bot/internal/backend"
 	"github.com/max-messenger/max-bot-api-client-go/schemes"
 )
 

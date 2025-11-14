@@ -5,7 +5,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/c4erries/max_bot/internal/appbot/mocks"
+	"github.com/insentodesu/max_bot/internal/appbot/mocks"
 	"github.com/max-messenger/max-bot-api-client-go/schemes"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/mock"

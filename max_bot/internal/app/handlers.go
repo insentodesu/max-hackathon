@@ -9,8 +9,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/c4erries/max_bot/internal/appbot"
-	"github.com/c4erries/max_bot/internal/backend"
+	"github.com/insentodesu/max_bot/internal/appbot"
+	"github.com/insentodesu/max_bot/internal/backend"
 	maxbot "github.com/max-messenger/max-bot-api-client-go"
 	"github.com/max-messenger/max-bot-api-client-go/schemes"
 )
@@ -797,9 +797,6 @@ func registerMenus(menus *MenuRegistry) {
 			{
 				{Text: "Заявления", Payload: actionApplicationsOpen, Intent: schemes.POSITIVE},
 			},
-			{
-				{Text: "Регистрация", Payload: actionRegistrationOpen, Intent: schemes.DEFAULT},
-			},
 		},
 	})
 
@@ -811,7 +808,6 @@ func registerMenus(menus *MenuRegistry) {
 		Rows: [][]MenuButton{
 			{
 				{Text: "Сегодня", Payload: actionScheduleToday, Intent: schemes.DEFAULT},
-				{Text: "На эту неделю", Payload: actionScheduleWeek, Intent: schemes.DEFAULT},
 			},
 			{
 				{Text: "Назад", Payload: menuRoot, Intent: schemes.DEFAULT},

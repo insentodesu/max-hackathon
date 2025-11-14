@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/c4erries/max_bot/internal/appbot"
-	"github.com/c4erries/max_bot/internal/backend"
+	"github.com/insentodesu/max_bot/internal/appbot"
+	"github.com/insentodesu/max_bot/internal/backend"
 	"github.com/rs/zerolog"
 )
 

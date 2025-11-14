@@ -1,4 +1,4 @@
-module github.com/c4erries/max_bot
+module github.com/insentodesu/max_bot
 
 go 1.25.1
 

@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/c4erries/max_bot/internal/backend"
+	"github.com/insentodesu/max_bot/internal/backend"
 )
 
 type registrationCoordinator struct {

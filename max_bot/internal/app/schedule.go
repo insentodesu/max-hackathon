@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/c4erries/max_bot/internal/backend"
+	"github.com/insentodesu/max_bot/internal/backend"
 )
 
 type scheduleService struct {

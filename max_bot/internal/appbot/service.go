@@ -1,4 +1,4 @@
-﻿package appbot
+package appbot
 
 import (
 	"context"
@@ -12,41 +12,33 @@ import (
 	"github.com/rs/zerolog"
 )
 
-// UpdatesProvider ╨╛╨┐╤А╨╡╨┤╨╡╨╗╤П╨╡╤В ╨╕╤Б╤В╨╛╤З╨╜╨╕╨║ ╨░╨┐╨┤╨╡╨╣╤В╨╛╨▓ Max API (long polling/webhook).
 type UpdatesProvider interface {
 	GetUpdates(context.Context) <-chan schemes.UpdateInterface
 }
 
-// MessageSender ╨╛╤В╨┐╤А╨░╨▓╨╗╤П╨╡╤В ╤Б╨╛╨╛╨▒╤Й╨╡╨╜╨╕╤П ╨╛╤В ╨╕╨╝╨╡╨╜╨╕ ╨▒╨╛╤В╨░.
 type MessageSender interface {
 	Send(context.Context, *maxbot.Message) (string, error)
 }
 
-// CommandHandler ╨▓╤Л╨╖╤Л╨▓╨░╨╡╤В╤Б╤П, ╨║╨╛╨│╨┤╨░ ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤М ╨╛╤В╨┐╤А╨░╨▓╨╗╤П╨╡╤В ╨┐╨╛╨┤╤Е╨╛╨┤╤П╤Й╤Г╤О ╤Б╨╗╨╡╤И-╨║╨╛╨╝╨░╨╜╨┤╤Г.
 type CommandHandler func(context.Context, *MessageContext) error
 
-// MessageHandler ╨╛╨▒╤А╨░╨▒╨░╤В╤Л╨▓╨░╨╡╤В ╤Б╨╛╨╛╨▒╤Й╨╡╨╜╨╕╤П, ╨┤╨╗╤П ╨║╨╛╤В╨╛╤А╤Л╤Е ╨╜╨╡ ╨╜╨░╨╣╨┤╨╡╨╜╨╛ ╨╜╨╕ ╨╛╨┤╨╜╨╛╨╣ ╨║╨╛╨╝╨░╨╜╨┤╤Л.
 type MessageHandler func(context.Context, *MessageContext) error
 
-// CallbackHandler ╨╛╨▒╤А╨░╨▒╨░╤В╤Л╨▓╨░╨╡╤В ╨╜╨░╨╢╨░╤В╨╕╤П ╨╜╨░ ╨║╨╜╨╛╨┐╨║╨╕ ╨╕╨╜╨╗╨░╨╣╨╜-╨║╨╗╨░╨▓╨╕╨░╤В╤Г╤А╤Л.
 type CallbackHandler func(context.Context, *CallbackContext) error
 
 type BotStartedHandler func(context.Context, *BotStartedContext) error
 
-// Command ╨╛╨┐╨╕╤Б╤Л╨▓╨░╨╡╤В ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║, ╨║╨╛╤В╨╛╤А╤Л╨╣ ╨╝╨╛╨╢╨╜╨╛ ╨╖╨░╤А╨╡╨│╨╕╤Б╤В╤А╨╕╤А╨╛╨▓╨░╤В╤М ╨▓ ╤Б╨╡╤А╨▓╨╕╤Б╨╡ ╨▒╨╛╤В╨░.
 type Command struct {
 	Name        string
 	Description string
 	Handler     CommandHandler
 }
 
-// CommandInfo тАФ ╤Б╨╛╨║╤А╨░╤Й╤С╨╜╨╜╨░╤П ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤П ╨╛ ╨╖╨░╤А╨╡╨│╨╕╤Б╤В╤А╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨╣ ╨║╨╛╨╝╨░╨╜╨┤╨╡.
 type CommandInfo struct {
 	Name        string
 	Description string
 }
 
-// Service ╨╕╨╜╨║╨░╨┐╤Б╤Г╨╗╨╕╤А╤Г╨╡╤В Max Bot API ╨╕ ╤А╨░╤Б╨┐╤А╨╡╨┤╨╡╨╗╤П╨╡╤В ╨▓╤Е╨╛╨┤╤П╤Й╨╕╨╡ ╨░╨┐╨┤╨╡╨╣╤В╤Л ╨┐╨╛ ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║╨░╨╝.
 type Service struct {
 	api *maxbot.Api
 	log zerolog.Logger
@@ -70,17 +62,14 @@ type commandEntry struct {
 	handler     CommandHandler
 }
 
-// SessionState ╨╛╨┐╨╕╤Б╤Л╨▓╨░╨╡╤В ╤В╨╡╨║╤Г╤Й╨╡╨╡ ╤Б╨╛╤Б╤В╨╛╤П╨╜╨╕╨╡ ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤П ╨┐╤А╨╕ ╨┐╨╛╤И╨░╨│╨╛╨▓╨╛╨╝ ╨▓╨▓╨╛╨┤╨╡.
 type SessionState struct {
 	Step    string
 	Params  map[string]string
 	Payload []byte
 }
 
-// SessionHandler ╨▓╤Л╨╖╤Л╨▓╨░╨╡╤В╤Б╤П, ╨║╨╛╨│╨┤╨░ ╤Г ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤П ╨╡╤Б╤В╤М ╨░╨║╤В╨╕╨▓╨╜╤Л╨╣ ╤И╨░╨│ ╤Б╨╡╤Б╤Б╨╕╨╕.
 type SessionHandler func(context.Context, *MessageContext, SessionState) error
 
-// NewService ╤Б╨▓╤П╨╖╤Л╨▓╨░╨╡╤В ╨║╨╗╨╕╨╡╨╜╤В Max API ╨╕ ╨╗╨╛╨│╨│╨╡╤А.
 func NewService(api *maxbot.Api, log zerolog.Logger) *Service {
 	if api == nil {
 		panic("appbot: api client is nil")
@@ -101,7 +90,6 @@ func NewService(api *maxbot.Api, log zerolog.Logger) *Service {
 	}
 }
 
-// RegisterCommand ╨┐╨╛╤В╨╛╨║╨╛╨▒╨╡╨╖╨╛╨┐╨░╤Б╨╜╨╛ ╨┤╨╛╨▒╨░╨▓╨╗╤П╨╡╤В ╨╕╨╗╨╕ ╨┐╨╡╤А╨╡╨╛╨┐╤А╨╡╨┤╨╡╨╗╤П╨╡╤В ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║ ╨║╨╛╨╝╨░╨╜╨┤╤Л.
 func (s *Service) RegisterCommand(cmd Command) {
 	name := normalizeCommand(cmd.Name)
 	if name == "" || cmd.Handler == nil {
@@ -121,7 +109,6 @@ func (s *Service) RegisterCommand(cmd Command) {
 	}
 }
 
-// RegisterMessageHandler ╨┤╨╛╨▒╨░╨▓╨╗╤П╨╡╤В ╨╖╨░╨┐╨░╤Б╨╜╨╛╨╣ ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║, ╨╡╤Б╨╗╨╕ ╨╜╨╕ ╨╛╨┤╨╜╨░ ╨║╨╛╨╝╨░╨╜╨┤╨░ ╨╜╨╡ ╨┐╨╛╨┤╨╛╤И╨╗╨░.
 func (s *Service) RegisterMessageHandler(handler MessageHandler) {
 	if handler == nil {
 		return
@@ -132,7 +119,6 @@ func (s *Service) RegisterMessageHandler(handler MessageHandler) {
 	s.messageHandlers = append(s.messageHandlers, handler)
 }
 
-// RegisterCallbackHandler ╨┤╨╛╨▒╨░╨▓╨╗╤П╨╡╤В ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║ ╨┤╨╗╤П ╨╜╨░╨╢╨░╤В╨╕╨╣ ╨╜╨░ ╨║╨╜╨╛╨┐╨║╨╕.
 func (s *Service) RegisterCallbackHandler(handler CallbackHandler) {
 	if handler == nil {
 		return
@@ -143,7 +129,6 @@ func (s *Service) RegisterCallbackHandler(handler CallbackHandler) {
 	s.callbackHandlers = append(s.callbackHandlers, handler)
 }
 
-// RegisterBotStartedHandler регистрирует обработчик события "Start".
 func (s *Service) RegisterBotStartedHandler(handler BotStartedHandler) {
 	if handler == nil {
 		return
@@ -154,7 +139,6 @@ func (s *Service) RegisterBotStartedHandler(handler BotStartedHandler) {
 	s.botStartedHandlers = append(s.botStartedHandlers, handler)
 }
 
-// RegisterSessionHandler ╤А╨╡╨│╨╕╤Б╤В╤А╨╕╤А╤Г╨╡╤В ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║ ╨┤╨╗╤П ╤Г╨║╨░╨╖╨░╨╜╨╜╨╛╨│╨╛ ╤И╨░╨│╨░ ╤Б╨╡╤Б╤Б╨╕╨╕.
 func (s *Service) RegisterSessionHandler(step string, handler SessionHandler) {
 	if step == "" || handler == nil {
 		return
@@ -168,7 +152,6 @@ func (s *Service) RegisterSessionHandler(step string, handler SessionHandler) {
 	s.sessionHandlers[step] = handler
 }
 
-// Commands ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨║╨╛╨╝╨░╨╜╨┤╤Л ╨▓ ╨┐╨╛╤А╤П╨┤╨║╨╡ ╤А╨╡╨│╨╕╤Б╤В╤А╨░╤Ж╨╕╨╕.
 func (s *Service) Commands() []CommandInfo {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
@@ -184,12 +167,10 @@ func (s *Service) Commands() []CommandInfo {
 	return result
 }
 
-// API ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨║╨╗╨╕╨╡╨╜╤В Max Bot API.
 func (s *Service) API() *maxbot.Api {
 	return s.api
 }
 
-// SendMessage ╨╛╤В╨┐╤А╨░╨▓╨╗╤П╨╡╤В ╨┐╨╛╨┤╨│╨╛╤В╨╛╨▓╨╗╨╡╨╜╨╜╨╛╨╡ ╤Б╨╛╨╛╨▒╤Й╨╡╨╜╨╕╨╡ ╤З╨╡╤А╨╡╨╖ API ╨▒╨╛╤В╨░.
 func (s *Service) SendMessage(ctx context.Context, msg *maxbot.Message) (string, error) {
 	if msg == nil {
 		return "", errors.New("appbot: message is nil")
@@ -200,7 +181,6 @@ func (s *Service) SendMessage(ctx context.Context, msg *maxbot.Message) (string,
 	return s.sender.Send(ctx, msg)
 }
 
-// NewKeyboardBuilder ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╤Е╨╡╨╗╨┐╨╡╤А ╨┤╨╗╤П ╤Б╨▒╨╛╤А╨║╨╕ ╨╕╨╜╨╗╨░╨╣╨╜-╨║╨╗╨░╨▓╨╕╨░╤В╤Г╤А.
 func (s *Service) NewKeyboardBuilder() *maxbot.Keyboard {
 	if s.api == nil || s.api.Messages == nil {
 		return nil
@@ -208,7 +188,6 @@ func (s *Service) NewKeyboardBuilder() *maxbot.Keyboard {
 	return s.api.Messages.NewKeyboardBuilder()
 }
 
-// SetSessionState ╤Б╨╛╤Е╤А╨░╨╜╤П╨╡╤В ╤Б╨╛╤Б╤В╨╛╤П╨╜╨╕╨╡ ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤П.
 func (s *Service) SetSessionState(userID int64, state SessionState) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -230,14 +209,12 @@ func (s *Service) setSessionStateLocked(userID int64, state SessionState) {
 	}
 }
 
-// ClearSessionState ╤Г╨┤╨░╨╗╤П╨╡╤В ╤Б╨╛╤Б╤В╨╛╤П╨╜╨╕╨╡ ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤П.
 func (s *Service) ClearSessionState(userID int64) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	delete(s.sessions, userID)
 }
 
-// SessionState ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨║╨╛╨┐╨╕╤О ╤Б╨╛╤Е╤А╨░╨╜╤С╨╜╨╜╨╛╨│╨╛ ╤Б╨╛╤Б╤В╨╛╤П╨╜╨╕╤П ╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╨╡╨╗╤П.
 func (s *Service) SessionState(userID int64) (SessionState, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
@@ -252,7 +229,6 @@ func (s *Service) SessionState(userID int64) (SessionState, bool) {
 	}, true
 }
 
-// NotifyUser отправляет простой текст напрямую пользователю, минуя чат.
 func (s *Service) NotifyUser(ctx context.Context, userID int64, text string) error {
 	text = strings.TrimSpace(text)
 	if userID <= 0 {
@@ -264,7 +240,6 @@ func (s *Service) NotifyUser(ctx context.Context, userID int64, text string) err
 	return s.sendText(ctx, text, userID, 0)
 }
 
-// Run читает апдейты из API до отмены контекста.
 func (s *Service) Run(ctx context.Context) error {
 	if s.updates == nil {
 		return errors.New("appbot: updates provider is nil")

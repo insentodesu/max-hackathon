@@ -8,12 +8,12 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/c4erries/max_bot/internal/app"
-	"github.com/c4erries/max_bot/internal/appbot"
-	"github.com/c4erries/max_bot/internal/backend"
-	"github.com/c4erries/max_bot/internal/config"
-	"github.com/c4erries/max_bot/internal/httpserver"
-	"github.com/c4erries/max_bot/internal/logger"
+	"github.com/insentodesu/max_bot/internal/app"
+	"github.com/insentodesu/max_bot/internal/appbot"
+	"github.com/insentodesu/max_bot/internal/backend"
+	"github.com/insentodesu/max_bot/internal/config"
+	"github.com/insentodesu/max_bot/internal/httpserver"
+	"github.com/insentodesu/max_bot/internal/logger"
 	maxbot "github.com/max-messenger/max-bot-api-client-go"
 )
 

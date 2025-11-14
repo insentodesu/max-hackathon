@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/c4erries/max_bot/internal/appbot"
+	"github.com/insentodesu/max_bot/internal/appbot"
 	maxbot "github.com/max-messenger/max-bot-api-client-go"
 	"github.com/max-messenger/max-bot-api-client-go/schemes"
 )
