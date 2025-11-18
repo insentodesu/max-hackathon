@@ -12,16 +12,16 @@ chmod +x scripts/test-backend-bot.sh
 ```
 
 Скрипт:
-- выполняет `docker compose up -d backend bot frontend`;
+- выполняет `docker-compose up -d backend bot frontend`;
 - ждёт, пока `/health`, `/healthz` и корневая страница фронтенда отвечают;
 - внутри backend выполняет `bash ./init_db.sh` (пропускается, если `SKIP_SEED=1`);
-- выводит ответы health‑check и результат `docker compose ps`.
+- выводит ответы health‑check и результат `docker-compose ps`.
 
 ### Вручную
 
 ```bash
-docker compose up --build backend bot frontend
-docker compose exec backend bash -lc "bash ./init_db.sh"
+docker-compose up --build backend bot frontend
+docker-compose exec backend bash -lc "bash ./init_db.sh"
 ```
 
 `init_db.sh` создаёт схему и заполняет демонстрационными данными (университеты, факультеты, студенты, расписания, события, заявки, платежи, рассылки и т.д.).
@@ -77,18 +77,18 @@ docker compose exec backend bash -lc "bash ./init_db.sh"
 
 ```bash
 # Логи
-docker compose logs -f backend
-docker compose logs -f bot
-docker compose logs -f frontend
+docker-compose logs -f backend
+docker-compose logs -f bot
+docker-compose logs -f frontend
 
 # Состояние контейнеров
-docker compose ps backend bot frontend
+docker-compose ps backend bot frontend
 
 # Повторно наполнить БД
-docker compose exec backend bash -lc "bash ./init_db.sh"
+docker-compose exec backend bash -lc "bash ./init_db.sh"
 
 # Остановить всё
-docker compose down
+docker-compose down
 ```
 
 ## Переменные окружения

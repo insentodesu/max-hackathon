@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-COMPOSE_CMD="${COMPOSE_CMD:-docker compose}"
+COMPOSE_CMD="${COMPOSE_CMD:-docker-compose}"
 BACKEND_HEALTH_URL="${BACKEND_HEALTH_URL:-http://localhost:8000/health}"
 BOT_HEALTH_URL="${BOT_HEALTH_URL:-http://localhost:8080/healthz}"
 FRONTEND_HEALTH_URL="${FRONTEND_HEALTH_URL:-http://localhost:4173}"

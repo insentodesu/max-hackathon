@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-COMPOSE_CMD="${COMPOSE_CMD:-docker compose}"
+COMPOSE_CMD="${COMPOSE_CMD:-docker-compose}"
 PROJECT_NAME="${COMPOSE_PROJECT_NAME:-edumax}"
 VOLUME_NAME="${DB_VOLUME_NAME:-${PROJECT_NAME}_backend_data}"
 
