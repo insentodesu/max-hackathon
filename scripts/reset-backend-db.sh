@@ -13,8 +13,8 @@ warn() {
   printf '[warn] %s\n' "$*" >&2
 }
 
-info "Stopping backend/bot containers"
-$COMPOSE_CMD down backend bot
+info "Stopping backend/bot/nginx containers"
+$COMPOSE_CMD down backend bot nginx
 
 info "Removing database volume: ${VOLUME_NAME}"
 if ! docker volume rm -f "${VOLUME_NAME}" >/dev/null 2>&1; then
@@ -26,5 +26,5 @@ if [[ "${SKIP_RESTART:-0}" == "1" ]]; then
   exit 0
 fi
 
-info "Starting backend/bot containers with a clean database"
-$COMPOSE_CMD up -d backend bot
+info "Starting backend/bot/nginx containers with a clean database"
+$COMPOSE_CMD up -d backend bot nginx

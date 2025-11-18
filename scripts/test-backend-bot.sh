@@ -5,7 +5,10 @@ COMPOSE_CMD="${COMPOSE_CMD:-docker-compose}"
 BACKEND_HEALTH_URL="${BACKEND_HEALTH_URL:-http://localhost:8000/health}"
 BOT_HEALTH_URL="${BOT_HEALTH_URL:-http://localhost:8080/healthz}"
 FRONTEND_HEALTH_URL="${FRONTEND_HEALTH_URL:-http://localhost:4173}"
-SERVICES_ENV="${SERVICES:-backend bot frontend}"
+NGINX_DOMAIN="${NGINX_DOMAIN:-techno-shark.ru}"
+NGINX_RESOLVE_IP="${NGINX_RESOLVE_IP:-127.0.0.1}"
+NGINX_HEALTH_URL="${NGINX_HEALTH_URL:-https://${NGINX_DOMAIN}:8080}"
+SERVICES_ENV="${SERVICES:-backend bot frontend nginx}"
 read -r -a SERVICES <<<"$SERVICES_ENV"
 
 info() {
@@ -21,6 +24,13 @@ wait_for() {
   local name=$2
   info "Waiting for ${name} at ${url}"
   until curl -fsS "$url" >/dev/null 2>&1; do
+    sleep 1
+  done
+}
+
+wait_for_nginx() {
+  info "Waiting for nginx at ${NGINX_HEALTH_URL} (resolving ${NGINX_DOMAIN} -> ${NGINX_RESOLVE_IP})"
+  until curl -fsSk --resolve "${NGINX_DOMAIN}:8080:${NGINX_RESOLVE_IP}" "${NGINX_HEALTH_URL}" >/dev/null 2>&1; do
     sleep 1
   done
 }
@@ -57,6 +67,10 @@ if need_service "frontend"; then
   wait_for "$FRONTEND_HEALTH_URL" "frontend"
 fi
 
+if need_service "nginx"; then
+  wait_for_nginx
+fi
+
 if need_service "backend" && [[ "${SKIP_SEED:-0}" != "1" ]]; then
   info "Seeding database inside backend container (init_db.sh)"
   $COMPOSE_CMD exec backend bash -lc "bash ./init_db.sh"
@@ -80,6 +94,11 @@ if need_service "frontend"; then
   info "Frontend root response (first 200 bytes):"
   curl -fsS "$FRONTEND_HEALTH_URL" | head -c 200
   printf '\n'
+fi
+
+if need_service "nginx"; then
+  info "Nginx HTTPS response headers:"
+  curl -fsSkI --resolve "${NGINX_DOMAIN}:8080:${NGINX_RESOLVE_IP}" "${NGINX_HEALTH_URL}"
 fi
 
 info "Container status:"
