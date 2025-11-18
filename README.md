@@ -1,8 +1,10 @@
 # Запуск приложения
+# ДАННЫЕ ДЛЯ РЕГИСТРАЦИИ В БОТЕ СМОТРЕТЬ в TESTING.MD !!!
 
-- Требования: установлен Docker и Docker Compose (плагин `docker compose`).
+- Требования: установлен Docker и docker-compose (плагин `docker-compose`).
 - Переменные окружения: проверьте и при необходимости отредактируйте файл `.env` в корне.
   Минимум укажите `BOT_TOKEN`, а также согласуйте токены `HTTP_BACKEND_TOKEN` и `BOT_NOTIFY_TOKEN`.
+
 
 ## Быстрый старт (с Bash/WSL/Git Bash)
 
@@ -17,8 +19,8 @@ chmod +x scripts/test-backend-bot.sh
 ## Ручной запуск (PowerShell/без Bash)
 
 ```powershell
-docker compose up -d backend bot frontend
-docker compose exec backend bash -lc "bash ./init_db.sh"
+docker-compose up -d backend bot frontend
+docker-compose exec backend bash -lc "bash ./init_db.sh"
 ```
 
 ## Доступы
@@ -31,12 +33,12 @@ docker compose exec backend bash -lc "bash ./init_db.sh"
 ## Полезные команды
 
 ```bash
-docker compose logs -f backend
-docker compose logs -f bot
-docker compose logs -f frontend
+docker-compose logs -f backend
+docker-compose logs -f bot
+docker-compose logs -f frontend
 
-docker compose ps
-docker compose down
+docker-compose ps
+docker-compose down
 ```
 
 ## Работа с ботом
