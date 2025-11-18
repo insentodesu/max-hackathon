@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { App } from "antd";
 import { useLibraryAccessQuery } from "@/hooks/queries";
-import { transformLibraryAccessForPage } from "../lib/transformLibraryAccess";
+import { transformLibraryAccessForPage, type LibraryAccessViewModel } from "../lib/transformLibraryAccess";
 
 /**
  * Хук для управления логикой страницы библиотеки
@@ -13,7 +13,7 @@ export function useLibraryPage() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const { data: apiData, isLoading, error } = useLibraryAccessQuery();
-  const libraryData = apiData ? transformLibraryAccessForPage(apiData) : null;
+  const libraryData: LibraryAccessViewModel | null = apiData ? transformLibraryAccessForPage(apiData) : null;
 
   const handleCopy = useCallback(
     async (text: string) => {
