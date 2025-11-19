@@ -71,7 +71,7 @@ docker-compose exec backend bash -lc "bash ./init_db.sh"
 - `create_payment.py` — создание платежей;
 - `add_student.py` — добавление студента.
 
-Все подробности и переменные окружения описаны в `scripts/backend-tools/README.md`. Тем не менее, Swagger (`http://localhost:8000/docs`) остаётся основным источником схем и примеров.
+Все подробности и переменные окружения описаны в `scripts/backend-tools/README.md`. Тем не менее, Swagger (`http://localhost:8160/docs`) остаётся основным источником схем и примеров.
 
 ## Полезные команды
 
@@ -117,7 +117,7 @@ LOG_LEVEL=debug
 BACKEND_API_BASE_URL=http://backend:8000/api/v1
 
 # Frontend
-VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_API_BASE_URL=http://localhost:8160/api/v1
 VITE_API_TOKEN=
 ```
 

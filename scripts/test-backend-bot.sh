@@ -2,12 +2,12 @@
 set -euo pipefail
 
 COMPOSE_CMD="${COMPOSE_CMD:-docker-compose}"
-BACKEND_HEALTH_URL="${BACKEND_HEALTH_URL:-http://localhost:8000/health}"
-BOT_HEALTH_URL="${BOT_HEALTH_URL:-http://localhost:8080/healthz}"
-FRONTEND_HEALTH_URL="${FRONTEND_HEALTH_URL:-http://localhost:4173}"
+BACKEND_HEALTH_URL="${BACKEND_HEALTH_URL:-http://localhost:8160/health}"
+BOT_HEALTH_URL="${BOT_HEALTH_URL:-http://localhost:8180/healthz}"
+FRONTEND_HEALTH_URL="${FRONTEND_HEALTH_URL:-http://localhost:8170}"
 NGINX_DOMAIN="${NGINX_DOMAIN:-techno-shark.ru}"
 NGINX_RESOLVE_IP="${NGINX_RESOLVE_IP:-127.0.0.1}"
-NGINX_HEALTH_URL="${NGINX_HEALTH_URL:-https://${NGINX_DOMAIN}:8080}"
+NGINX_HEALTH_URL="${NGINX_HEALTH_URL:-https://${NGINX_DOMAIN}:8150}"
 SERVICES_ENV="${SERVICES:-backend bot frontend nginx}"
 read -r -a SERVICES <<<"$SERVICES_ENV"
 
@@ -30,7 +30,7 @@ wait_for() {
 
 wait_for_nginx() {
   info "Waiting for nginx at ${NGINX_HEALTH_URL} (resolving ${NGINX_DOMAIN} -> ${NGINX_RESOLVE_IP})"
-  until curl -fsSk --resolve "${NGINX_DOMAIN}:8080:${NGINX_RESOLVE_IP}" "${NGINX_HEALTH_URL}" >/dev/null 2>&1; do
+  until curl -fsSk --resolve "${NGINX_DOMAIN}:8150:${NGINX_RESOLVE_IP}" "${NGINX_HEALTH_URL}" >/dev/null 2>&1; do
     sleep 1
   done
 }
@@ -98,7 +98,7 @@ fi
 
 if need_service "nginx"; then
   info "Nginx HTTPS response headers:"
-  curl -fsSkI --resolve "${NGINX_DOMAIN}:8080:${NGINX_RESOLVE_IP}" "${NGINX_HEALTH_URL}"
+  curl -fsSkI --resolve "${NGINX_DOMAIN}:8150:${NGINX_RESOLVE_IP}" "${NGINX_HEALTH_URL}"
 fi
 
 info "Container status:"

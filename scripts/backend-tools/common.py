@@ -12,11 +12,11 @@ import urllib.request
 from typing import Any, Iterable
 
 
-API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000/api/v1")
+API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8160/api/v1")
 
 
 def _base_url() -> str:
-    base = API_BASE_URL.strip() or "http://localhost:8000/api/v1"
+    base = API_BASE_URL.strip() or "http://localhost:8160/api/v1"
     return base.rstrip("/")
 
 

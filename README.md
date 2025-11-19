@@ -25,10 +25,10 @@ docker-compose exec backend bash -lc "bash ./init_db.sh"
 
 ## Доступы
 
-- Backend API: `http://localhost:8000`
-- Swagger: `http://localhost:8000/docs`
-- Frontend: `http://localhost:4173`
-- Bot (health): `http://localhost:8080/healthz`
+- Backend API: `http://localhost:8160`
+- Swagger: `http://localhost:8160/docs`
+- Frontend: `http://localhost:8170`
+- Bot (health): `http://localhost:8180/healthz`
 
 ## Полезные команды
 
