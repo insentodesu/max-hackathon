@@ -17,4 +17,25 @@ export default defineConfig({
       "@/lib": path.resolve(__dirname, "./src/lib"),
     },
   },
+  // DEV-сервер (npm run dev)
+  server: {
+    host: true, // слушать на всех интерфейсах (0.0.0.0)
+    port: 5173, // можно любой
+    allowedHosts: [
+      "techno-shark.ru",
+      "localhost",
+      "127.0.0.1",
+    ],
+  },
+
+  // PREVIEW (npm run preview)
+  preview: {
+    host: true,
+    port: 4173,
+    allowedHosts: [
+      "techno-shark.ru",
+      "localhost",
+      "127.0.0.1",
+    ],
+  },
 });
